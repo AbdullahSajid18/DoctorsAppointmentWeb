@@ -3,12 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import { assets } from "../assets/assets_client/assets";
+import RelatedDoctors from "../Components/RelatedDoctors";
 
 const Apppointment = () => {
   const { docId } = useParams();
   const { doctors, currencySymbol } = useContext(AppContext);
-  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  
+  const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
   // eslint-disable-next-line no-unused-vars
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
@@ -47,25 +48,24 @@ const Apppointment = () => {
         currentDate.setMinutes(0);
       }
 
-      let timeSlots = []
+      let timeSlots = [];
       while (currentDate < endTime) {
-        let formattedTime = currentDate.toLocaleTimeString ([], {hour : '2-digit', minute : '2-digit'});
+        let formattedTime = currentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
 
         // adding slot to array
         timeSlots.push({
           dateTime: new Date(currentDate),
-          time: formattedTime
+          time: formattedTime,
         });
 
         // incrementing current time by 30 minutes
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
-      
-      setDocSlots(prev => ([...prev, timeSlots]));
 
-      
-      
-      
+      setDocSlots((prev) => [...prev, timeSlots]);
     }
   };
 
@@ -79,8 +79,7 @@ const Apppointment = () => {
 
   useEffect(() => {
     console.log(docSlots);
-    
-  }, [docSlots])
+  }, [docSlots]);
 
   return (
     docInfo && (
@@ -129,21 +128,40 @@ const Apppointment = () => {
           </div>
         </div>
 
-          {/* ------- Appointment Booking Slots  ------- */}
-          <div className="mt-4 font-medium text-gray-700 sm:ml-72 sm:pl-4">
-            <p>Booking Slots </p>
-            <div className='flex items-center w-full gap-3 mt-4 overflow-x-scroll'>
-              {
-                docSlots.length && docSlots.map((item, index)=> (
-                  <div className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-gray-200' } `} key={index}>
-                    <p>{item[0] && daysOfWeek[item[0].dateTime.getDay()]} </p>
-                    <p>{item[0] && item[0].dateTime.getDate()}</p>
-                  </div>
-                  
-                ))
-              }
-            </div>
+        {/* ------- Appointment Booking Slots  ------- */}
+        <div className="mt-4 font-medium text-gray-700 sm:ml-72 sm:pl-4">
+          <p>Booking Slots </p>
+          <div className="flex items-center w-full gap-3 mt-4 overflow-x-scroll">
+            {docSlots.length &&
+              docSlots.map((item, index) => (
+                <div
+                  onClick={() => setSlotIndex(index)}
+                  className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
+                    slotIndex === index
+                      ? "bg-primary text-white"
+                      : "border border-gray-200"
+                  } `}
+                  key={index}
+                >
+                  <p>{item[0] && daysOfWeek[item[0].dateTime.getDay()]} </p>
+                  <p>{item[0] && item[0].dateTime.getDate()}</p>
+                </div>
+              ))}
           </div>
+          
+          <div className='flex items-center w-full gap-3 mt-4 overflow-x-scroll'>
+            {docSlots.length && docSlots[slotIndex].map((item, index) => (
+              <p onClick={() => setSlotTime(item.time) } className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${item.time === slotTime ? 'bg-primary text-white ' : 'text-gray-400 border border-gray300'} `} key={index}>
+                {item.time.toLowerCase()}
+              </p>
+            ))}
+          </div>
+          <button className="py-3 my-6 text-sm font-light text-white rounded-full px-14 bg-primary">Book an Appointment </button>
+        </div>
+
+        {/* Listing Related Doctors */}
+
+            <RelatedDoctors docId = {docId} speciality={docInfo.speciality} />
 
         
       </div>
