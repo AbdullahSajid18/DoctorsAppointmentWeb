@@ -60,30 +60,30 @@ const MyProfile = () => {
       </div>
       <div>
         <p className='mt-3 underline text-neutral-500'>BASIC INFORMATION</p>
-        <div>
-          <p>Gender:</p>
+        <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700 ' >
+          <p className='font-medium'>Gender:</p>
           {
             isEditable
-           ? <select onChange={e => setUserData(prev => ({...prev, gender: e.target.value}))} value= {userData.gender} >
+           ? <select className='bg-gray-100 max-w-20' onChange={e => setUserData(prev => ({...prev, gender: e.target.value}))} value= {userData.gender} >
            <option value="Male">Male</option>
            <option value="Female">Female</option>
            </select>
-           : <p>{userData.gender} </p>
+           : <p className='text-gray-400'>{userData.gender} </p>
           }
-          <p>Date of Birth:</p>
+          <p className='font-medium'>Date of Birth:</p>
           {
             isEditable 
-            ? <input type='date' onChange={e => setUserData(prev => ({...prev, dob: e.target.value}))} value={userData.dob} />
-            : <p>{userData.dob}</p>
+            ? <input className='bg-gray-100 max-w-28' type='date' onChange={e => setUserData(prev => ({...prev, dob: e.target.value}))} value={userData.dob} />
+            : <p className='text-gray-400' >{userData.dob}</p>
           }
         </div>
       </div>
 
-      <div>
+      <div className='mt-10' >
         {
           isEditable
-         ? <button onClick={() => setIsEditable(false)}>Save Information</button>
-         : <button onClick={() => setIsEditable(true)}>Edit</button> 
+         ? <button className='p-8 py-2 transition-all border rounded-full border-primary hover:bg-primary hover:text-white' onClick={() => setIsEditable(false)}>Save Information</button>
+         : <button className='p-8 py-2 transition-all border rounded-full border-primary hover:bg-primary hover:text-white' onClick={() => setIsEditable(true)}>Edit</button> 
         }
       </div>
 
