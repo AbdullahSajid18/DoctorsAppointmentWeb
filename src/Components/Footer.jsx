@@ -9,7 +9,7 @@ const Footer = () => {
         
         {/* ------- Left Section ------- */}
         <div>
-          <img className="w-40 mb-5" src={assets.logo} alt="" />
+          <img className="w-40 mb-5 " src={assets.logo} alt="" />
           <p className="w-full leading-6 text-gray-600 md:w-2/3">
             We are dedicated to providing seamless doctor appointment booking
             services. With a wide network of trusted healthcare professionals,
@@ -19,9 +19,9 @@ const Footer = () => {
 
         {/* ------- Middle Section ------- */}
         <div>
-          <p className='mb-5 text-xl font-medium'>COMPANY</p>
+          <p className='mb-5 text-xl font-medium '>COMPANY</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>Home</li>
+            <li >Home</li>
             <li>About Us</li>
             <li>Contact Us</li>
             <li>Privacy policy</li>
@@ -30,8 +30,8 @@ const Footer = () => {
 
         {/* ------- Right Section ------- */}
         <div>
-          <p className="mb-5 text-xl font-medium">GET IN TOUCH</p>
-          <ul className="flex flex-col gap-2 text-gray-600">
+          <p className="mb-5 text-xl font-medium ">GET IN TOUCH</p>
+          <ul className="flex flex-col gap-2 text-gray-600 ">
             <li>+1-212-456-7890</li>
             <li>meriumsheikh@gmail.com</li>
           </ul>
